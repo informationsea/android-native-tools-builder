@@ -7,7 +7,7 @@ RUN mkdir -p /data/data/jackpal.androidterm/app_HOME/ /opt/androidbuild
 WORKDIR /opt/androidbuild
 RUN curl -O http://dl.google.com/android/ndk/android-ndk-r10e-linux-x86_64.bin
 RUN chmod +x android-ndk-r10e-linux-x86_64.bin
-RUN ./android-ndk-r10e-linux-x86_64.bin
+RUN ./android-ndk-r10e-linux-x86_64.bin > /dev/null
 
 # Setup Build Environment
 RUN bash /opt/androidbuild/android-ndk-r10e/build/tools/make-standalone-toolchain.sh --ndk-dir=/opt/androidbuild/android-ndk-r10e --install-dir=/opt/android-ndk --platform=android-19 --arch=arm
@@ -27,6 +27,7 @@ RUN curl -o busybox https://busybox.net/downloads/binaries/busybox-x86_64
 RUN chmod +x ./busybox
 RUN ./busybox --install -s .
 RUN curl -o busybox https://busybox.net/downloads/binaries/busybox-armv5l
+RUN chmod +x ./busybox
 
 # Zlib
 WORKDIR /tmp
@@ -85,5 +86,5 @@ RUN patch -p1 < vim74.patch
 RUN ./configure --host $HOSTCONFIG --prefix $PREFIX LDFLAGS="-L$PREFIX/lib" CFLAGS="-I$PREFIX/include" --cache-file=config.cache --disable-nls --disable-netbeans --disable-gpm --disable-multibyte --with-tlib=ncurses CONFIG_SITE=$PWD/config.site --enable-gui=no --disable-gtktest --disable-xim --with-features=normal --without-x --disable-netbeans
 RUN make && make install STRIP=arm-linux-androideabi-strip
 
-WORKDIR /data/data/jackpal.androidterm
+WORKDIR $PREFIX/..
 RUN tar cjf android-local.tar.bz2 local
