@@ -1,0 +1,27 @@
+diff -urp zsh-5.2/Src/init.c zsh-5.2-patched/Src/init.c
+--- zsh-5.2/Src/init.c	2015-11-20 21:54:02.000000000 +0000
++++ zsh-5.2-patched/Src/init.c	2016-01-10 14:44:25.061499100 +0000
+@@ -544,7 +544,7 @@ init_io(void)
+     /* Make sure the tty is opened read/write. */
+     if (isatty(0)) {
+ 	zsfree(ttystrname);
+-	if ((ttystrname = ztrdup(ttyname(0)))) {
++	if ((ttystrname = ztrdup("/dev/tty"))) {
+ 	    SHTTY = movefd(open(ttystrname, O_RDWR | O_NOCTTY));
+ #ifdef TIOCNXCL
+ 	    /*
+@@ -583,12 +583,12 @@ init_io(void)
+     if (SHTTY == -1 && isatty(1) && rdwrtty(1) &&
+ 	(SHTTY = movefd(dup(1))) != -1) {
+ 	zsfree(ttystrname);
+-	ttystrname = ztrdup(ttyname(1));
++	ttystrname = ztrdup("/dev/tty");
+     }
+     if (SHTTY == -1 &&
+ 	(SHTTY = movefd(open("/dev/tty", O_RDWR | O_NOCTTY))) != -1) {
+ 	zsfree(ttystrname);
+-	ttystrname = ztrdup(ttyname(SHTTY));
++	ttystrname = ztrdup("/dev/tty");
+     }
+     if (SHTTY == -1) {
+ 	zsfree(ttystrname);

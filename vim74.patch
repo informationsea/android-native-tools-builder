@@ -1,0 +1,11 @@
+--- vim74/src/mbyte.c	2013-07-05 18:07:21.000000000 +0000
++++ vim74-patched/src/mbyte.c	2016-01-10 15:15:30.981004485 +0000
+@@ -700,7 +700,7 @@ codepage_invalid:
+ 	     * API */
+ 	    n = IsDBCSLeadByteEx(enc_dbcs, (BYTE)i) ? 2 : 1;
+ #else
+-# if defined(MACOS) || defined(__amigaos4__)
++# if 1
+ 	    /*
+ 	     * if mblen() is not available, character which MSB is turned on
+ 	     * are treated as leading byte character. (note : This assumption

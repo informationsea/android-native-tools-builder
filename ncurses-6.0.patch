@@ -1,0 +1,12 @@
+diff -upr ncurses-6.0/form/fty_num.c ncurses-6.0-patched/form/fty_num.c
+--- ncurses-6.0/form/fty_num.c	2012-02-23 10:02:15.000000000 +0000
++++ ncurses-6.0-patched/form/fty_num.c	2016-01-10 14:21:59.540267223 +0000
+@@ -36,6 +36,8 @@
+ 
+ MODULE_ID("$Id: fty_num.c,v 1.29 2012/02/23 10:02:15 tom Exp $")
+ 
++#undef HAVE_LOCALE_H
++
+ #if HAVE_LOCALE_H
+ #include <locale.h>
+ #endif
