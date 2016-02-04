@@ -1,0 +1,12 @@
+diff -urp lua-5.3.2/src/luaconf.h lua-5.3.2-pached/src/luaconf.h
+--- lua-5.3.2/src/luaconf.h	2015-10-21 18:17:40.000000000 +0000
++++ lua-5.3.2-pached/src/luaconf.h	2016-01-11 14:37:53.486029506 +0000
+@@ -654,7 +654,7 @@
+ ** macro must include header 'locale.h'.)
+ */
+ #if !defined(lua_getlocaledecpoint)
+-#define lua_getlocaledecpoint()		(localeconv()->decimal_point[0])
++#define lua_getlocaledecpoint()		('.')
+ #endif
+
+ /* }================================================================== */
